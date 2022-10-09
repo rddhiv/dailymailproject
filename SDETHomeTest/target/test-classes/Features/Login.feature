@@ -7,10 +7,8 @@ Feature: Feature to test Sports Link and Features functionality
     Then User should click on the Football page first hyperlink and content should get displayed
     Then User should Go to the gallery and Click on gallery image
     And Gallery Image should display verify previous and next button with proper image navigation
-    When User should Click on the Facebook embedded image and FB model dialog should appear  
-     Then User should click on video embedded within the article and click the full screen button 
-    And ensure video can be viewed in full screen and minimized 
-    Then Navigate to the bottom right of the article page to the Premier League Table section 
-    And  exhibit the points or positions from the Premier league table 
-    
-    
+    When User should Click on the Facebook embedded image and FB model dialog should appear
+    Then User should click on video embedded within the article and click the full screen button
+    And ensure video can be viewed in full screen and minimized
+    Then Navigate to the bottom right of the article page to the Premier League Table section
+    And exhibit the points or positions from the Premier league table

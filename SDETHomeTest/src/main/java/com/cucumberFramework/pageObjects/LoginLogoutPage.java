@@ -154,7 +154,8 @@ public class LoginLogoutPage {
 		 
 		//driver.findElement(By.xpath("//button[@class='vjs-close-button vjs-control vjs-button vjs-pip-close-button']")).click();
 		
-		WebElement s=driver.findElement(By.xpath("//button[@class='openGalleryButton-2CswR small-caPg5']"));
+		//WebElement s=driver.findElement(By.xpath("//button[@class='openGalleryButton-2CswR small-caPg5']"));
+		  WebElement s=driver.findElement(By.xpath("//*[contains(@class,'openGalleryButton')]"));
 		if(s.isDisplayed())
 		{
 			 JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -192,13 +193,19 @@ public class LoginLogoutPage {
 	}
 	public void checkFaceBookPage()
 	{
-
+		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		String parent=driver.getWindowHandle();
 		WebElement fb=driver.findElement(By.xpath("//div[@class='container-3zJLP vertical-2XJd5']/ul/li[1]"));
 		 JavascriptExecutor js = (JavascriptExecutor) driver;
 		 js.executeScript("arguments[0].click()", fb);
-		
-		String parent=driver.getWindowHandle();
+		 try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 
 		Set<String>s=driver.getWindowHandles();
 
@@ -217,10 +224,13 @@ public class LoginLogoutPage {
 			
 		driver.switchTo().window(child_window);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
+		
 		System.out.println("Title name"+driver.switchTo().window(child_window).getTitle());
+		
+		
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		driver.close();
+		driver.switchTo().window(parent);
 		}
 
 		}
@@ -230,21 +240,28 @@ public class LoginLogoutPage {
 	
 	public void clickEmbeddedVideo()
 	{
+		try {
+		Thread.sleep(2000);
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		 JavascriptExecutor js = (JavascriptExecutor) driver;
+		 //JavascriptExecutor js = (JavascriptExecutor) driver;
 		 //js.executeScript("arguments[0].click()", fb);
 		 Actions action = new Actions(driver);
 		//Find the targeted element
-		 WebElement fb=driver.findElement(By.xpath("//video-js[@aria-label='Video Player']"));
+		 WebElement fb=driver.findElement(By.xpath("//button[@class='vjs-fullscreen-control vjs-control vjs-button']"));
 		                //Here I used JavascriptExecutor interface to scroll down to the targeted element
 		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", fb);
 		                //used doubleClick(element) method to do double click action
-		action.doubleClick(fb).build().perform();
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		action.doubleClick(fb).build().perform();
+		action.click(fb).build().perform();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		action.click(fb).build().perform();
+			
+			System.out.println("User see the embedded video");
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
-		System.out.println("User see the embedded video");
 	}
 	
 	public void viewMaximizeMinimizeVideo()
@@ -255,8 +272,10 @@ public class LoginLogoutPage {
 	
 	public void clickPremierLeagueTable()
 	{
-
-		List <WebElement> col = driver.findElements(By.xpath(".//*[@id=\"leftcontainer\"]/table/thead/tr/th"));
+		Actions action = new Actions(driver);
+		WebElement nxtpage=driver.findElement(By.xpath("//*[contains(@class,'prevNextButton')]"));
+		action.click(nxtpage).build().perform();
+		List <WebElement> col = driver.findElements(By.xpath(".//*[contains(@text,'Liverpool')]"));
 	    System.out.println("No of cols are : " +col.size()); 
 	    //No.of rows 
 	    List <WebElement> rows = driver.findElements(By.xpath(".//*[@id='leftcontainer']/table/tbody/tr/td[1]")); 
