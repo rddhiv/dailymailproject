@@ -26,57 +26,6 @@ public class DailyMailPage {
 
 	private WebDriver driver;
 
-	@FindBy(xpath = "//input[@type='email']")
-	public WebElement userName;
-
-	@FindBy(xpath = "//input[@id='continue']")
-	WebElement Continue;
-
-	@FindBy(xpath = "//input[@type='password']")
-	public WebElement password;
-
-	@FindBy(xpath = "//input[@id='signInSubmit']")
-	WebElement loginButton;
-
-	@FindBy(xpath = "//div[@id='nav-tools']/a[@data-nav-role='signin']")
-	WebElement SignInfromNav;
-
-	@FindBy(xpath = "//span[contains(text(),'Sign')]/parent::a")
-	public WebElement logoutBtn;
-
-	@FindBy(xpath = "//div[@id='nav-shop']/a")
-	public WebElement allShopNav;
-
-	@FindBy(xpath = "//span[@data-nav-panelkey='TvApplElecPanel']")
-	public WebElement TvApplElecPanel;
-
-	@FindBy(xpath = "//span[contains(text(),'Headphones')]/parent::a")
-	public WebElement headPhonesCatLnk;
-
-	@FindBy(xpath = "//div[@id='mainResults']/ul/li[1]/div/div/div/a[contains(@class,'access-detail-page')]")
-	public WebElement firstHeadPhoneLnk;
-
-	@FindBy(xpath = "//input[@id='add-to-cart-button']")
-	public WebElement addToCartBtn;
-
-	@FindBy(linkText = "//a[@id='nav-cart']")
-	public WebElement cartButton;
-
-	@FindBy(xpath = "//form[@id='activeCartViewForm']/div[@data-name='Active Items' or contains(@class,'sc-list-body')]//input[@value='Delete']")
-	public List<WebElement> itemList;
-
-	// form[@id='activeCartViewForm']/div[@data-name='Active Items' or
-	// contains(@class,'sc-list-body')]//input[@value='Delete']
-
-	@FindBy(xpath = "//div[contains(@class,'nav-search-field')]/input")
-	public WebElement itemSearchField;
-
-	@FindBy(xpath = "//div[starts-with(@class,'sg-col-4')]/div[@class='sg-col-inner']/div/h5/a")
-	public WebElement secondMacbookItem;
-
-	@FindBy(xpath = "//select[@id='quantity' or @name='quantity']")
-	public List<WebElement> qtyField;
-
 	WaitHelper waitHelper;
 
 	public List<WebElement> col;
@@ -90,19 +39,7 @@ public class DailyMailPage {
 		// waitHelper.WaitForElement(userName, 60);
 	}
 
-	public void enterUserName(String userName) {
-		this.userName.sendKeys(userName);
-	}
-
-	public void enterPassword(String password) {
-		this.password.sendKeys(password);
-	}
-
-	public void clickLoginButton() {
-		loginButton.click();
-	}
-
-	public void loginWebpage(String arg1) {
+	public void OpenWebpage(String arg1) {
 		System.setProperty("webdriver.chrome.driver",
 				System.getProperty("user.dir") + "/src/test/resources/drivers/chromedriver.exe");
 		driver = new ChromeDriver();
@@ -114,28 +51,36 @@ public class DailyMailPage {
 	}
 
 	public void verifySportandFootballColor() {
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement s = driver.findElement(By.linkText("Sport"));
 		s.click();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		// String color1 = s.getCssValue("background-color");
 		WebElement f = driver.findElement(By.linkText("Football"));
 		f.click();
 		// String color2 = f.getCssValue("background-color");
-		System.out.println("User click sports tab" + f + "," + s);
+		System.out.println("User click sports tab");
 	}
 
 	public void verifyfootballPage() {
-		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
+		
 		// Javascript executor to return value
-		JavascriptExecutor j = (JavascriptExecutor) driver;
-		j.executeScript("return document.readyState").toString().equals("complete");
+		//JavascriptExecutor j = (JavascriptExecutor) driver;
+		//j.executeScript("return document.readyState").toString().equals("complete");
+		/*try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		// get the current URL
 		String url = driver.getCurrentUrl();
 		// checking condition if the URL is loaded
 		if (url.equals("https://www.dailymail.co.uk/sport/football/index.html")) {
-			System.out.println("Page Loaded");
-			System.out.println("Current Url: " + url);
+			System.out.println("Football Page Loaded");
+			//System.out.println("Current Url: " + url);
 		} else {
 			System.out.println("Page did not load");
 		}
@@ -145,18 +90,11 @@ public class DailyMailPage {
 	}
 
 	public void ClickGalleryContent() {
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		int size = driver.findElements(By.tagName("iframe")).size();
-		System.out.println("frame size" + size);
-		// driver.switchTo().frame("mailonlineprebidheader526476985912_MOAT_IFRAME");
-
-		// driver.findElement(By.xpath("//button[@class='vjs-close-button vjs-control
-		// vjs-button vjs-pip-close-button']")).click();
-
-		// WebElement
-		// s=driver.findElement(By.xpath("//button[@class='openGalleryButton-2CswR
-		// small-caPg5']"));
+		//System.out.println("frame size" + size);
+		
 		try
 		{
 			WebElement s = driver.findElement(By.xpath("//*[contains(@class,'openGalleryButton')]"));
@@ -174,7 +112,7 @@ public class DailyMailPage {
 				JavascriptExecutor js = (JavascriptExecutor) driver;
 				// Scroll down till the bottom of the page
 				js.executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", s);
-				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+				driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 				js.executeScript("arguments[0].click()", s);
 				// s.click();
 			}
@@ -183,12 +121,12 @@ public class DailyMailPage {
 	
 			{
 				size = driver.findElements(By.tagName("iframe")).size();
-				System.out.println("frame size" + size);
+				//System.out.println("frame size" + size);
 				driver.switchTo().frame("mailonlineprebidheader526476985912_MOAT_IFRAME").navigate();
 	
 			}
 	
-			System.out.println("User see the sports page");
+			System.out.println("User see the Gallery page");
 		}
 	}
 
@@ -203,7 +141,7 @@ public class DailyMailPage {
 		WebElement close = driver.findElement(By.xpath("//button[@aria-label='Close']"));
 		close.click();
 
-		System.out.println("User see the sports page");
+		System.out.println("User can able to click previous and next page");
 	}
 
 	public void checkFaceBookPage() {
@@ -222,7 +160,7 @@ public class DailyMailPage {
 
 		Set<String> s = driver.getWindowHandles();
 
-		System.out.println("User see the fb page :" + parent);
+		System.out.println("User see the fb page ");
 		// Now iterate using Iterator
 		Iterator<String> I1 = s.iterator();
 
@@ -235,7 +173,7 @@ public class DailyMailPage {
 				driver.switchTo().window(child_window);
 				driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-				System.out.println("Title name" + driver.switchTo().window(child_window).getTitle());
+				//System.out.println("Title name" + driver.switchTo().window(child_window).getTitle());
 
 				driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 				driver.close();
@@ -285,12 +223,12 @@ public class DailyMailPage {
 		action.click(nxtpage).build().perform();
 		 
 		col = driver.findElements(By.xpath("//div[contains(@class,'competitionTable')]/table/thead/tr/th"));
-		System.out.println("No of cols are : " + col.size());
+		//System.out.println("No of cols are : " + col.size());
 		// No.of rows
 		rows = driver.findElements(By.xpath("//div[contains(@class,'competitionTable')]/table/tbody/tr"));
-		System.out.println("No of rows are : " + rows.size());
+		//System.out.println("No of rows are : " + rows.size());
 
-		System.out.println("User see the sports page");
+		System.out.println("User see the Premier League table");
 	}
 
 	public void checkPositionofPLT(String teamName) {
@@ -313,9 +251,13 @@ public class DailyMailPage {
 				break;
 			}
 		}
-		System.out.println("Team Name is " + teamName);
-		System.out.println("Position of  " + teamName + " is " + position);
-		System.out.println("Points of " + teamName + " is " + points);
+		System.out.println();
+		System.out.println();
+		System.out.println("-------------------------------------------------------------------");
+		System.out.println("  Team Name is " + teamName);
+		System.out.println("  Position of  " + teamName + " is 	:" + position);
+		System.out.println("  Points of " + teamName + " is 	:" + points);
+		System.out.println("-------------------------------------------------------------------");
 	}
 	
 	public void userCloseBrowser()
@@ -338,24 +280,24 @@ public class DailyMailPage {
 		f = new SimpleDateFormat("EEEE");
 		Date date = new Date();
 		String day = f.format(date);
-		System.out.println("Full Day Name = " + day);
+		//System.out.println("Full Day Name = " + day);
 
 		f = new SimpleDateFormat("MMM");
 		String Month = f.format(date);
-		System.out.println("Full Month Name = " + Month);
+		//System.out.println("Full Month Name = " + Month);
 
 		f = new SimpleDateFormat("d");
 		String todaydate = f.format(date);
-		System.out.println("Full todaydate Name = " + todaydate);
+		//System.out.println("Full todaydate Name = " + todaydate);
 
 		driver.findElement(By.xpath("/html/body/div[4]/div/div/div/div[3]/div/button[2]")).click();
-		System.out.println("User entering the WebPage n see time :" + placeholderVal);
+		//System.out.println("User entering the WebPage and view current time :" + placeholderVal);
 		String[] arrSplit = placeholderVal.split(" 2022");
 		for (int i = 0; i < arrSplit.length; i++) {
 			placeholderVal = arrSplit[i];
 			break;
 		}
-		System.out.println("User entering the WebPage n see time after split:" + placeholderVal);
+		System.out.println("User entering the WebPage and View the time :" + placeholderVal);
 		if (placeholderVal.contentEquals(day + ", " + Month + " " + todaydate + "th")) {
 			System.out.println("assertion passed");
 		}

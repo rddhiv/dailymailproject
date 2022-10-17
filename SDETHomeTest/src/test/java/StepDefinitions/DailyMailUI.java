@@ -38,7 +38,7 @@ public class DailyMailUI {
 
 	@Given("^User Open the Webpage \"([^\"]*)\"$")
 	public void user_click_on_the_webpage(String arg1) {
-		dmui.loginWebpage(arg1);
+		dmui.OpenWebpage(arg1);
 	}
 
 	@Then("User can able to view the current date and time at the corner in the webpage")
